@@ -536,7 +536,7 @@
             // game over
             for (int k = 0; k < gameBoard.GetLength(0); k++)
             {
-                for (int f = 0; f < gameBoard.GetLength(0); f++)
+                for (int f = 0; f < gameBoard.GetLength(1); f++)
                 {
                     if (buttons[k, f].Text == "X" && buttons[k, f].BackColor == Color.White)
                     {
@@ -544,6 +544,27 @@
                         Application.Exit();
                     }
                 }   
+            }
+
+            // game clear
+            int mine_cnt = 10;
+            int all_board = ROW * COL - mine_cnt;
+            int cnt = 0;
+
+            for (int k = 0; k < gameBoard.GetLength(0); k++)
+            {
+                for (int f = 0; f < gameBoard.GetLength(1); f++)
+                {
+                    if (buttons[k, f].BackColor == Color.White)
+                    {
+                        ++cnt;
+                        if (all_board == cnt)
+                        {
+                            MessageBox.Show("Game Clear!");
+                            Application.Exit();
+                        }
+                    }
+                }
             }
         }
 
