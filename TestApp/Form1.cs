@@ -4,13 +4,13 @@
     {
         static short ROW = 10;
         static short COL = 10;
+        static string FLAG = "🚩";
 
         static short row = 9;
         static short col = 9;
+        static short mine = 10;
 
-        static string FLAG   = "🚩";
-
-        private string[,] gameBoard = new string [ROW, COL];
+        private string[,] gameBoard = new string[ROW, COL];
         private Button[,] buttons = new Button[ROW, COL];
 
         public Form1()
@@ -32,7 +32,7 @@
             }
 
             // make mine
-            for (int i = 0; i < 10; i++)
+            for (int i = 0; i < mine; i++)
             {
                 int a = rand.Next(0, ROW);
                 int b = rand.Next(0, COL);
@@ -68,7 +68,7 @@
 
                         if (i != 0)
                         {
-                            if (gameBoard[i-1, j] == "X")
+                            if (gameBoard[i - 1, j] == "X")
                             {
                                 gameBoard[i, j] = Convert.ToString(c += 1);
                             }
@@ -138,7 +138,7 @@
                 {
                     buttons[i, j] = new Button();
                     buttons[i, j].TabStop = false;
-                    buttons[i, j].BackColor= Color.Gray;
+                    buttons[i, j].BackColor = Color.Gray;
                     buttons[i, j].Location = new Point(xpos + (i * 50), ypos + (j * 50));
                     buttons[i, j].Size = new Size(60, 60);
                     buttons[i, j].Name = $"{i}{j}";
@@ -231,7 +231,7 @@
                         buttons[x - 1, y - 1].BackColor = Color.White;
                         openBoard(x - 1, y - 1);
                     }
-                    else if (gameBoard[x - 1, y - 1]  != "X" && gameBoard[x - 1, y - 1] != "0")
+                    else if (gameBoard[x - 1, y - 1] != "X" && gameBoard[x - 1, y - 1] != "0")
                     {
                         buttons[x - 1, y - 1].BackColor = Color.White;
                         buttons[x - 1, y - 1].Text = gameBoard[x - 1, y - 1];
@@ -306,7 +306,7 @@
 
             if (y != 0)
             {
-                if (!flagCheck(x , y - 1))
+                if (!flagCheck(x, y - 1))
                 {
                     if (gameBoard[x, y - 1] == "0" && gameBoard[x, y - 1] != "X")
                     {
@@ -543,12 +543,11 @@
                         MessageBox.Show("Game Over!");
                         Application.Exit();
                     }
-                }   
+                }
             }
 
             // game clear
-            int mine_cnt = 10;
-            int all_board = ROW * COL - mine_cnt;
+            int all_board = ROW * COL - mine;
             int cnt = 0;
 
             for (int k = 0; k < gameBoard.GetLength(0); k++)
